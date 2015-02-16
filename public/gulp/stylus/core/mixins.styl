@@ -1,0 +1,35 @@
+border-radius(v = 3px)
+  -webkit-border-radius args
+  -moz-border-radius args
+  border-radius args
+  
+opacity(n)
+      opacity n
+      filter unquote('progid:DXImageTransform.Microsoft.Alpha(Opacity=' + round(n * 100) + ')')
+      
+stripe(even = #fff, odd = #eee)
+   tr
+     background-color odd
+     &.even
+     &:nth-child(even)
+       background-color even
+
+set-font-size(value) {  
+    font-size: value; /* add PX (or original value) as backup */
+
+    if (value is inherit) {
+        /* do nothing, "inherit" has no unit */
+    } else {
+        font-size: remify(value);
+    }
+}
+
+remify(value) { /* separate mixin, so it can be used elsewhere */  
+    u = unit(value);
+
+    if (u is 'px') {
+        return unit(value/16, 'rem');
+    } else {
+        return unit(value, u);
+    }
+}
