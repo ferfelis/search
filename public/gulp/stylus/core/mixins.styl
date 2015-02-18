@@ -1,4 +1,5 @@
-border-radius(v = 3px)
+//simple
+border-radius(args = 3px)
   -webkit-border-radius args
   -moz-border-radius args
   border-radius args
@@ -14,6 +15,12 @@ stripe(even = #fff, odd = #eee)
      &:nth-child(even)
        background-color even
 
+size(w,h = w)
+  width w
+  height h
+
+
+//---extracted from http://davidwalsh.name/stylus-rem---//
 set-font-size(value) {  
     font-size: value; /* add PX (or original value) as backup */
 
@@ -33,3 +40,42 @@ remify(value) { /* separate mixin, so it can be used elsewhere */
         return unit(value, u);
     }
 }
+
+//----------------------------------------------//
+
+//--- GRID MIXINS ---/
+//---extracted from http://davidwalsh.name/stylus-grid
+generate-grid(space-out, start, end)
+  total = start
+  for n, x in 0..((end - start) / space-out)
+    .column-{x+1}
+      width total
+    total = total + space-out  
+
+set-col-width(qtd, total-size = 100%, col-width = $column-w, space-out = $column-space-out, content-size = $container-max-w)
+  width total-size * (((col-width * qtd) - space-out) / content-size)
+  
+set-col-space(total-size = 100%, space-out = $column-space-out, content-size = $container-max-w)
+  margin 0 (total-size * ((space-out / 2) / content-size))
+
+offset(cols, total-size = 100%, column-width = $column-w, space-out = $column-space-out, content-size = $container-max-w)
+  margin-left (total-size * ((column-width * cols) - space-out) / content-size)
+
+column(qtd)
+  @extends $fl;
+  set-col-space()
+  set-col-width(qtd)
+  margin-bottom $column-space-bottom
+
+hideOn(device)
+  display inherit
+  @media device
+    display none !important
+ 
+showOn(device)
+  display none
+  @media device
+    display inherit !important
+    
+
+  

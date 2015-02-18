@@ -2,11 +2,18 @@
   margin 0
   padding 0
   outline none
-  
+  box-sizing border-box
+
 body
-	font-family $font-default; 
-	background $clr-container-bg;
-	set-font-size($font-sz-txt);
-	color $clr-body-txt;
-	position relative;
-	height $sz-body;
+  column(12)
+  height $sz-body;
+  font-family $font-default; 
+  background $clr-container-bg;
+  set-font-size($font-sz-txt);
+  color $clr-body-txt;
+  position relative;
+  
+header
+  @media phone
+    position fixed
+    background-color $clr-primary
